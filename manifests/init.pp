@@ -33,8 +33,9 @@
 #------------------------------------------------------------------------------
 class libvirt (
 
-    $ensure  = undef,
-    $version = undef,
+    $ensure   = undef,
+    $version  = undef,
+    $mdns_adv = undef,
 
 ) {
 
