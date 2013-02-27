@@ -135,7 +135,7 @@
 #            require a user to supply their own password to gain
 #            full read/write access (aka sudo like), while anyone
 #            is allowed read/only access.
-#
+
 # Set an authentication scheme for UNIX read-only sockets
 # By default socket permissions allow anyone to connect
 #
@@ -233,7 +233,6 @@
 <% if @tls_no_verify_certificate -%>tls_no_verify_certificate = <%= @tls_no_verify_certificate %>
 <% end -%>
 
-
 # A whitelist of allowed x509  Distinguished Names
 # This list may contain wildcards such as
 #
@@ -248,7 +247,6 @@
 #tls_allowed_dn_list = ["DN1", "DN2"]
 <% if @tls_allowed_dn_list -%>tls_allowed_dn_list = <%= @tls_allowed_dn_list %>
 <% end -%>
-
 
 # A whitelist of allowed SASL usernames. The format for usernames
 # depends on the SASL authentication mechanism. Kerberos usernames
@@ -278,7 +276,6 @@
 <% if @max_clients -%>max_clients = <%= @max_clients %>
 <% end -%>
 
-
 # The minimum limit sets the number of workers to start up
 # initially. If the number of active clients exceeds this,
 # then more threads are spawned, upto max_workers limit.
@@ -290,7 +287,6 @@
 #max_workers = 20
 <% if @max_workers -%>max_workers = <%= @max_workers %>
 <% end -%>
-
 
 # The number of priority workers. If all workers from above
 # pool will stuck, some calls marked as high priority
@@ -367,9 +363,9 @@
 # Multiple output can be defined, they just need to be separated by spaces.
 # e.g.:
 # log_outputs="3:syslog:libvirtd"
+# to log all warnings and errors to syslog under the libvirtd ident
 <% if @log_outputs -%>log_outputs = "<%= @log_outputs %>"
 <% end -%>
-# to log all warnings and errors to syslog under the libvirtd ident
 
 # Log debug buffer size: default 64
 # The daemon keeps an internal debug log buffer which will be dumped in case
@@ -393,7 +389,7 @@
 #audit_level = 2
 <% if @audit_level -%>audit_level = <%= @audit_level %>
 <% end -%>
-#
+
 # If set to 1, then audit messages will also be sent
 # via libvirt logging infrastructure. Defaults to 0
 #
@@ -444,7 +440,7 @@
 #keepalive_count = 5
 <% if @keepalive_count -%>keepalive_count = <%= @keepalive_count %>
 <% end -%>
-#
+
 # If set to 1, libvirtd will refuse to talk to clients that do not
 # support keepalive protocol.  Defaults to 0.
 #
