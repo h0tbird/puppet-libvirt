@@ -6,10 +6,9 @@
 # that each "PARAMETER = VALUE" line in this file have the parameter
 # name just after a leading "#".
 
-#################################################################
-#
+#------------------------------------------------------------------------------
 # Network connectivity controls
-#
+#------------------------------------------------------------------------------
 
 # Flag listening for secure TLS connections on the public TCP/IP port.
 # NB, must pass the --listen flag to the libvirtd process for this to
@@ -20,6 +19,8 @@
 #
 # This is enabled by default, uncomment this to disable it
 #listen_tls = 0
+<% if @listen_tls -%>listen_tls = <%= @listen_tls %>
+<% end -%>
 
 # Listen for unencrypted TCP connections on the public TCP/IP port.
 # NB, must pass the --listen flag to the libvirtd process for this to
@@ -31,25 +32,29 @@
 #
 # This is disabled by default, uncomment this to enable it.
 #listen_tcp = 1
-
-
+<% if @listen_tcp -%>listen_tcp = <%= @listen_tcp %>
+<% end -%>
 
 # Override the port for accepting secure TLS connections
 # This can be a port number, or service name
 #
 #tls_port = "16514"
+<% if @tls_port -%>tls_port = "<%= @tls_port %>"
+<% end -%>
 
 # Override the port for accepting insecure TCP connections
 # This can be a port number, or service name
 #
 #tcp_port = "16509"
-
+<% if @tcp_port -%>tcp_port = "<%= @tcp_port %>"
+<% end -%>
 
 # Override the default configuration which binds to all network
 # interfaces. This can be a numeric IPv4/6 address, or hostname
 #
 #listen_addr = "192.168.0.1"
-
+<% if @listen_addr -%>listen_addr = "<%= @listen_addr %>"
+<% end -%>
 
 # Flag toggling mDNS advertizement of the libvirt service.
 #
@@ -57,8 +62,9 @@
 # stopping the Avahi daemon
 #
 # This is enabled by default, uncomment this to disable it
+# mdns_adv = 0
 <% if @mdns_adv -%>mdns_adv = <%= @mdns_adv %>
-<% end -%> 
+<% end -%>
 
 # Override the default mDNS advertizement name. This must be
 # unique on the immediate broadcast network.
@@ -67,12 +73,12 @@
 # is subsituted for the short hostname of the machine (without domain)
 #
 #mdns_name = "Virtualization Host Joe Demo"
+<% if @mdns_name -%>mdns_name = "<%= @mdns_name %>"
+<% end -%>
 
-
-#################################################################
-#
+#------------------------------------------------------------------------------
 # UNIX socket access controls
-#
+#------------------------------------------------------------------------------
 
 # Set the UNIX domain socket group ownership. This can be used to
 # allow a 'trusted' set of users access to management capabilities
@@ -80,6 +86,8 @@
 #
 # This is restricted to 'root' by default.
 #unix_sock_group = "libvirt"
+<% if @unix_sock_group -%>unix_sock_group = "<%= @unix_sock_group %>"
+<% end -%>
 
 # Set the UNIX socket permissions for the R/O socket. This is used
 # for monitoring VM status only
@@ -87,6 +95,8 @@
 # Default allows any user. If setting group ownership may want to
 # restrict this to:
 #unix_sock_ro_perms = "0777"
+<% if @unix_sock_ro_perms -%>unix_sock_ro_perms = "<%= @unix_sock_ro_perms %>"
+<% end -%>
 
 # Set the UNIX socket permissions for the R/W socket. This is used
 # for full management of VMs
@@ -97,14 +107,18 @@
 # If not using PolicyKit and setting group ownership for access
 # control then you may want to relax this to:
 #unix_sock_rw_perms = "0770"
+<% if @unix_sock_rw_perms -%>unix_sock_rw_perms = "<%= @unix_sock_rw_perms %>"
+<% end -%>
 
 # Set the name of the directory in which sockets will be found/created.
 #unix_sock_dir = "/var/run/libvirt"
+<% if @unix_sock_dir -%>unix_sock_dir = "<%= @unix_sock_dir %>"
+<% end -%>
 
-#################################################################
-#
+#------------------------------------------------------------------------------
 # Authentication.
-#
+#------------------------------------------------------------------------------
+
 #  - none: do not perform auth checks. If you can connect to the
 #          socket you are allowed. This is suitable if there are
 #          restrictions on connecting to the socket (eg, UNIX
@@ -128,6 +142,8 @@
 # To restrict monitoring of domains you may wish to enable
 # an authentication mechanism here
 #auth_unix_ro = "none"
+<% if @auth_unix_ro -%>auth_unix_ro = "<%= @auth_unix_ro %>"
+<% end -%>
 
 # Set an authentication scheme for UNIX read-write sockets
 # By default socket permissions only allow root. If PolicyKit
@@ -137,6 +153,8 @@
 # If the unix_sock_rw_perms are changed you may wish to enable
 # an authentication mechanism here
 #auth_unix_rw = "none"
+<% if @auth_unix_rw -%>auth_unix_rw = "<%= @auth_unix_rw %>"
+<% end -%>
 
 # Change the authentication scheme for TCP sockets.
 #
@@ -145,6 +163,8 @@
 # use, always enable SASL and use the GSSAPI or DIGEST-MD5
 # mechanism in /etc/sasl2/libvirt.conf
 #auth_tcp = "sasl"
+<% if @auth_tcp -%>auth_tcp = "<%= @auth_tcp %>"
+<% end -%>
 
 # Change the authentication scheme for TLS sockets.
 #
@@ -154,39 +174,41 @@
 # It is possible to make use of any SASL authentication
 # mechanism as well, by using 'sasl' for this option
 #auth_tls = "none"
+<% if @auth_tls -%>auth_tls = "<%= @auth_tls %>"
+<% end -%>
 
-
-
-#################################################################
-#
+#------------------------------------------------------------------------------
 # TLS x509 certificate configuration
-#
-
+#------------------------------------------------------------------------------
 
 # Override the default server key file path
 #
 #key_file = "/etc/pki/libvirt/private/serverkey.pem"
+<% if @key_file -%>key_file = "<%= @key_file %>"
+<% end -%>
 
 # Override the default server certificate file path
 #
 #cert_file = "/etc/pki/libvirt/servercert.pem"
+<% if @cert_file -%>cert_file = "<%= @cert_file %>"
+<% end -%>
 
 # Override the default CA certificate path
 #
 #ca_file = "/etc/pki/CA/cacert.pem"
+<% if @ca_file -%>ca_file = "<%= @ca_file %>"
+<% end -%>
 
 # Specify a certificate revocation list.
 #
 # Defaults to not using a CRL, uncomment to enable it
 #crl_file = "/etc/pki/CA/crl.pem"
+<% if @crl_file -%>crl_file = "<%= @crl_file %>"
+<% end -%>
 
-
-
-#################################################################
-#
+#------------------------------------------------------------------------------
 # Authorization controls
-#
-
+#------------------------------------------------------------------------------
 
 # Flag to disable verification of our own server certificates
 #
@@ -196,6 +218,8 @@
 # Default is to always run sanity checks. Uncommenting this
 # will disable sanity checks which is not a good idea
 #tls_no_sanity_certificate = 1
+<% if @tls_no_sanity_certificate -%>tls_no_sanity_certificate = <%= @tls_no_sanity_certificate %>
+<% end -%>
 
 # Flag to disable verification of client certificates
 #
@@ -206,6 +230,8 @@
 # Default is to always verify. Uncommenting this will disable
 # verification - make sure an IP whitelist is set
 #tls_no_verify_certificate = 1
+<% if @tls_no_verify_certificate -%>tls_no_verify_certificate = <%= @tls_no_verify_certificate %>
+<% end -%>
 
 
 # A whitelist of allowed x509  Distinguished Names
@@ -220,6 +246,8 @@
 #
 # By default, no DN's are checked
 #tls_allowed_dn_list = ["DN1", "DN2"]
+<% if @tls_allowed_dn_list -%>tls_allowed_dn_list = <%= @tls_allowed_dn_list %>
+<% end -%>
 
 
 # A whitelist of allowed SASL usernames. The format for usernames
@@ -237,17 +265,18 @@
 #
 # By default, no Username's are checked
 #sasl_allowed_username_list = ["joe@EXAMPLE.COM", "fred@EXAMPLE.COM" ]
+<% if @sasl_allowed_username_list -%>sasl_allowed_username_list = <%= @sasl_allowed_username_list %>
+<% end -%>
 
-
-
-#################################################################
-#
+#------------------------------------------------------------------------------
 # Processing controls
-#
+#------------------------------------------------------------------------------
 
 # The maximum number of concurrent client connections to allow
 # over all sockets combined.
 #max_clients = 20
+<% if @max_clients -%>max_clients = <%= @max_clients %>
+<% end -%>
 
 
 # The minimum limit sets the number of workers to start up
@@ -256,13 +285,19 @@
 # Typically you'd want max_workers to equal maximum number
 # of clients allowed
 #min_workers = 5
+<% if @min_workers -%>min_workers = <%= @min_workers %>
+<% end -%>
 #max_workers = 20
+<% if @max_workers -%>max_workers = <%= @max_workers %>
+<% end -%>
 
 
 # The number of priority workers. If all workers from above
 # pool will stuck, some calls marked as high priority
 # (notably domainDestroy) can be executed in this pool.
 #prio_workers = 5
+<% if @prio_workers -%>prio_workers = <%= @prio_workers %>
+<% end -%>
 
 # Total global limit on concurrent RPC calls. Should be
 # at least as large as max_workers. Beyond this, RPC requests
@@ -273,21 +308,26 @@
 # XXX this isn't actually enforced yet, only the per-client
 # limit is used so far
 #max_requests = 20
+<% if @max_requests -%>max_requests = <%= @max_requests %>
+<% end -%>
 
 # Limit on concurrent requests from a single client
 # connection. To avoid one client monopolizing the server
 # this should be a small fraction of the global max_requests
 # and max_workers parameter
 #max_client_requests = 5
+<% if @max_client_requests -%>max_client_requests = <%= @max_client_requests %>
+<% end -%>
 
-#################################################################
-#
+#------------------------------------------------------------------------------
 # Logging controls
-#
+#------------------------------------------------------------------------------
 
 # Logging level: 4 errors, 3 warnings, 2 information, 1 debug
 # basically 1 will log everything possible
 #log_level = 3
+<% if @log_level -%>log_level = <%= @log_level %>
+<% end -%>
 
 # Logging filters:
 # A filter allows to select a different logging level for a given category
@@ -327,6 +367,8 @@
 # Multiple output can be defined, they just need to be separated by spaces.
 # e.g.:
 # log_outputs="3:syslog:libvirtd"
+<% if @log_outputs -%>log_outputs = "<%= @log_outputs %>"
+<% end -%>
 # to log all warnings and errors to syslog under the libvirtd ident
 
 # Log debug buffer size: default 64
@@ -335,12 +377,13 @@
 # the default buffer size in kilobytes.
 # If value is 0 or less the debug log buffer is deactivated
 #log_buffer_size = 64
+<% if @log_buffer_size -%>log_buffer_size = <%= @log_buffer_size %>
+<% end -%>
 
-
-##################################################################
-#
+#------------------------------------------------------------------------------
 # Auditing
-#
+#------------------------------------------------------------------------------
+
 # This setting allows usage of the auditing subsystem to be altered:
 #
 #   audit_level == 0  -> disable all auditing
@@ -348,14 +391,20 @@
 #   audit_level == 2  -> enable auditing, and exit if disabled on host
 #
 #audit_level = 2
+<% if @audit_level -%>audit_level = <%= @audit_level %>
+<% end -%>
 #
 # If set to 1, then audit messages will also be sent
 # via libvirt logging infrastructure. Defaults to 0
 #
 #audit_logging = 1
+<% if @audit_logging -%>audit_logging = <%= @audit_logging %>
+<% end -%>
 
-###################################################################
+#------------------------------------------------------------------------------
 # UUID of the host:
+#------------------------------------------------------------------------------
+
 # Provide the UUID of the host here in case the command
 # 'dmidecode -s system-uuid' does not provide a valid uuid. In case
 # 'dmidecode' does not provide a valid UUID and none is provided here, a
@@ -367,9 +416,13 @@
 # it with the output of the 'uuidgen' command and then
 # uncomment this entry
 #host_uuid = "00000000-0000-0000-0000-000000000000"
+<% if @host_uuid -%>host_uuid = "<%= @host_uuid %>"
+<% end -%>
 
-###################################################################
+#------------------------------------------------------------------------------
 # Keepalive protocol:
+#------------------------------------------------------------------------------
+
 # This allows libvirtd to detect broken client connections or even
 # dead client.  A keepalive message is sent to a client after
 # keepalive_interval seconds of inactivity to check if the client is
@@ -386,9 +439,15 @@
 # sending any keepalive messages.  Disabled by default.
 #
 #keepalive_interval = 5
+<% if @keepalive_interval -%>keepalive_interval = <%= @keepalive_interval %>
+<% end -%>
 #keepalive_count = 5
+<% if @keepalive_count -%>keepalive_count = <%= @keepalive_count %>
+<% end -%>
 #
 # If set to 1, libvirtd will refuse to talk to clients that do not
 # support keepalive protocol.  Defaults to 0.
 #
 #keepalive_required = 1
+<% if @keepalive_required -%>keepalive_required = <%= @keepalive_required %>
+<% end -%>
