@@ -1,0 +1,8 @@
+name            'h0tbird-libvirt'
+version         '0.0.1'
+source          'https://github.com/h0tbird/puppet-libvirt'
+author          'Marc Villacorta'
+license         'GPL'
+summary         'Libvirt Module'
+description     'Manages the libvirt services.'
+project_page    'https://github.com/h0tbird/puppet-libvirt'
