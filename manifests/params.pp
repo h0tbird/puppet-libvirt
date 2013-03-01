@@ -12,18 +12,19 @@
 class libvirt::params {
 
     # Set location for files and templates:
-    $files     = "puppet:///modules/${module_name}/${operatingsystem}"
-    $templates = "${module_name}/${operatingsystem}"
+    $files     = "puppet:///modules/${module_name}/${::operatingsystem}"
+    $templates = "${module_name}/${::operatingsystem}"
 
     # Set OS specifics:
-    case $osfamily {
+    case $::osfamily {
 
         'RedHat': {
             $packages = ['libvirt']
-            $configs  = ['/etc/libvirt/libvirtd.conf']
+            $configs  = [ '/etc/libvirt/libvirtd.conf',
+                          '/etc/libvirt/qemu/networks/autostart/default.xml' ]
             $services = ['libvirtd']
         }
 
-        default: { fail("${module_name}::params ${osfamily} family is not supported yet.") }
+        default: { fail("${module_name}::params ${::osfamily} family is not supported yet.") }
     }
 }

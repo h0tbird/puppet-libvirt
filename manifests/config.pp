@@ -16,11 +16,14 @@ class libvirt::config {
     $configs   = getvar("${module_name}::params::configs")
 
     # Install the configuration files:
-    file { $configs[0]:
-        ensure  => present,
-        content => template("${templates}/libvirtd.conf.erb"),
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0644';
+    file {
+        $configs[0]:
+            ensure  => present,
+            content => template("${templates}/libvirtd.conf.erb"),
+            owner   => 'root',
+            group   => 'root',
+            mode    => '0644';
+        $configs[1]:
+            ensure => absent;
     }
 }
